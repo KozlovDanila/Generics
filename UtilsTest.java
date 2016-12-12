@@ -1,32 +1,50 @@
-import org.junit.Assert;
 import org.junit.Test;
+import org.testng.Assert;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UtilsTest {
 
     @Test
     public void testingFilter() {
-        Double[] array = {1.0,2.0,3.0,4.0};
+
+        List<Double> list = new ArrayList<>();
         Predicate<Number> predicate = new MoreThenZero<>();
-        Double[] temp = Utils.<Double>filter(array, predicate);
-        Assert.assertTrue( Arrays.equals(temp, array));
+        list.add(1.2);
+        list.add(-1.2);
+        list.add(1.2);
+        list.add(1.2);
+        List<Number> checkList = new ArrayList<>();
+        checkList.add(1.2);
+        checkList.add(1.2);
+        checkList.add(1.2);
+        List<?> tempList = new ArrayList<>();
+        tempList = Utils.<Number>filter(list, predicate);
+        Assert.assertTrue(tempList.equals(checkList));
     }
 
 
     @Test
     public void testingFindMiddleElementWithDouble() {
-        Double[] array = {1.0, 2.0, 3.0, 4.0, 5.0};
+        List<Double> list = new ArrayList<>();
+        list.add(1.0);
+        list.add(1.1);
+        list.add(1.2);
         Predicate<Number> predicate = new MoreThenZero<>();
-        Double temp = Utils.<Double>findCentralElement(array);
-        Assert.assertEquals(temp,(Double)3.0);
+        Double temp = Utils.<Double>findCentralElement(list);
+        Assert.assertEquals(temp,(Double)1.1);
     }
 
     @Test
     public void testingFindMiddleElementWithInt() {
-        Integer[] array = {1, 2, 3, 4, 5};
+        List<Integer> list = new ArrayList<>();
+        list.add(0);
+        list.add(1);
+        list.add(2);
+        list.add(4);
         Predicate<Number> predicate = new MoreThenZero<>();
-        Integer temp = Utils.<Integer>findCentralElement(array);
-        Assert.assertEquals(temp,(Integer) 3);
+        Integer temp = Utils.<Integer>findCentralElement(list);
+        Assert.assertEquals(temp,(Integer) 2);
     }
 }
